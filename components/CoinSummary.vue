@@ -1,9 +1,11 @@
 <script setup>
   const { coin } = defineProps(['coin'])
 
-  const { data, pending, error } = await useFetch(`/api/chart?coin=${coin.id}`)
+  const { data, pending, error, refresh } = await useFetch(`/api/chart?coin=${coin.id}`)
 
-  console.log(data)
+  refresh()
+  
+  const chart = ref(data)
 </script>
 
 <template>
@@ -22,6 +24,9 @@
     <div>
       <h6>Change</h6>
       <h5 :class="[coin.price_change_percentage_24h > 0 ? 'up' : 'down']">{{coin.price_change_percentage_24h.toFixed(2)}}%</h5>
+    </div>
+    <div>
+      <Chart :chart="chart" :id="coin.id"/>
     </div>
     <hr>
   </section>
