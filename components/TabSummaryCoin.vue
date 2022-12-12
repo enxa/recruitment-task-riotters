@@ -34,7 +34,7 @@
 <style scoped>
   .tab-summary-coin {
     display: grid;
-    grid-template-columns: 1fr 2fr 2fr 2fr 1fr;
+    grid-template-columns: 1fr 2fr 2fr 2fr 3fr;
     align-items: center;
     gap: 2rem;
     cursor: pointer;
