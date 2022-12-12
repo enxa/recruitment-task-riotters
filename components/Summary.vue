@@ -1,19 +1,27 @@
 <script setup>
-  const { data, pending, error } = useFetch('/api/coins')
-
-  const coins = useState(() => data)
+  const selectedCoin = useSelectedCoin()
 </script>
 
 <template>
   <section class="summary">
-    <template v-if="pending">
-      <div>Loading...</div>
-    </template>
-    <template v-else v-for="coin in coins" :key="coin.id">
-      <CoinSummary :coin="coin" />
-    </template>
-    <template v-if="error">
-      <div>{{error}}</div>
-    </template>
+    <h3>Summary</h3>
+    <div v-if="selectedCoin" class="chart" :key="selectedCoin.id">
+      <SummaryChart :chart="selectedCoin.chart" :id="`select-${selectedCoin.id}`"/>
+    </div>
+    <div v-else>
+      <p>Click coin to show summary</p>
+    </div>
   </section>
 </template>
+
+<style scoped>
+  @media (min-width: 640px) {
+    .summary {
+      padding: 3.2rem;
+    }
+  }
+    h3 {
+      font: var(--font-large-medium);
+      margin-bottom: 4.0rem;
+    }
+</style>

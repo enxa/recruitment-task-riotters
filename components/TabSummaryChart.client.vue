@@ -1,7 +1,7 @@
 <script setup>
   import Chart from 'chart.js/auto'
 
-  const { chart, id } = defineProps(['chart', 'id'])
+  const { chart, id, change } = defineProps(['chart', 'id', 'change'])
 
   onMounted(async () => {
     const data = await chart.map(c => ({ timestamp: c[0], price: c[1] }))
@@ -15,8 +15,8 @@
           datasets: [{ 
             label: '',
             data: data.map(row => row.price),
-            // borderColor: 'none',
-            // backgroundColor: 'none',
+            borderColor: change,
+            backgroundColor: change,
             // borderWidth: 1
             pointRadius: 1,
             cubicInterpolationMode: 'monotone',
@@ -45,6 +45,14 @@
 
 <template>
   <section class="chart">
-    <div style="width: 300px;"><canvas :id="id"></canvas></div>
+    <canvas :id="id"></canvas>
   </section>
 </template>
+
+<style scoped>
+  .chart {
+    width: 100%;
+    max-width: 150px;
+    max-height: 100px;
+  }
+</style>
